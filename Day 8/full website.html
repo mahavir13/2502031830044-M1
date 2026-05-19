@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,23 +18,39 @@
       background: #f4f6f9;
     }
 
+    /* NAVBAR */
+
     nav {
       background: #2563eb;
-      padding: 15px;
+      padding: 15px 25px;
       display: flex;
-      justify-content: center;
-      gap: 15px;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .left-menu,
+    .right-menu {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     nav button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 5px;
       background: white;
       color: #2563eb;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
       font-weight: bold;
+      cursor: pointer;
     }
+
+    nav button:hover {
+      background: #dbeafe;
+    }
+
+    /* PAGE */
 
     .page {
       display: none;
@@ -45,7 +62,7 @@
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: auto;
     }
 
@@ -53,8 +70,8 @@
       background: white;
       padding: 25px;
       border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
@@ -77,24 +94,47 @@
       padding: 10px 20px;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 10px;
     }
+
+    button.submit:hover {
+      background: #1d4ed8;
+    }
+
+    /* TABLE */
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 15px;
+      margin-top: 20px;
     }
 
     table th,
     table td {
       border: 1px solid #ddd;
       padding: 12px;
+      text-align: center;
     }
 
     table th {
       background: #2563eb;
       color: white;
     }
+
+    table button {
+      background: red;
+      color: white;
+      border: none;
+      padding: 7px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    table button:hover {
+      background: darkred;
+    }
+
+    /* CARDS */
 
     .cards {
       display: grid;
@@ -107,11 +147,7 @@
       padding: 20px;
       border-radius: 10px;
       text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .card h2 {
-      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .card p {
@@ -121,126 +157,340 @@
     }
   </style>
 </head>
+
 <body>
 
+  <!-- NAVBAR -->
+
   <nav>
-    <button onclick="showPage('home')">Home</button>
-    <button onclick="showPage('login')">Login</button>
-    <button onclick="showPage('register')">Register</button>
-    <button onclick="showPage('students')">Students</button>
-    <button onclick="showPage('about')">About</button>
+
+    <div class="left-menu">
+      <button onclick="showPage('home')">Home</button>
+      <button onclick="showPage('students')">Students</button>
+      <button onclick="showPage('teachers')">Teachers</button>
+      <button onclick="showPage('courses')">Courses</button>
+      <button onclick="showPage('about')">About</button>
+    </div>
+
+    <div class="right-menu">
+      <button onclick="showPage('login')">Login</button>
+      <button onclick="showPage('register')">Register</button>
+    </div>
+
   </nav>
 
+  <!-- HOME PAGE -->
+
   <div id="home" class="page active">
+
     <div class="container">
+
       <div class="box">
         <h1>College Management System</h1>
-        <p>Welcome to simple and secure college management website.</p>
       </div>
 
       <div class="cards">
+
         <div class="card">
           <h2>Students</h2>
-          <p id="count">3</p>
+          <p id="studentCount">3</p>
         </div>
 
         <div class="card">
           <h2>Teachers</h2>
-          <p>15</p>
+          <p id="teacherCount">2</p>
         </div>
 
         <div class="card">
           <h2>Courses</h2>
-          <p>5</p>
+          <p id="courseCount">2</p>
         </div>
+
       </div>
+
     </div>
+
   </div>
 
-  <div id="login" class="page">
-    <div class="container">
-      <div class="box">
-        <h1>Login Page</h1>
-
-        <input type="text" placeholder="Enter Username">
-        <input type="password" placeholder="Enter Password">
-
-        <button class="submit">Login</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="register" class="page">
-    <div class="container">
-      <div class="box">
-        <h1>Register Page</h1>
-
-        <input type="text" placeholder="Enter Full Name">
-        <input type="email" placeholder="Enter Email">
-        <input type="password" placeholder="Create Password">
-
-        <button class="submit">Register</button>
-      </div>
-    </div>
-  </div>
+  <!-- STUDENT PAGE -->
 
   <div id="students" class="page">
+
     <div class="container">
+
       <div class="box">
+
         <h1>Student Management</h1>
 
-        <input type="text" id="name" placeholder="Student Name">
-        <input type="text" id="course" placeholder="Course Name">
+        <input type="text" id="studentName" placeholder="Student Name">
 
-        <button class="submit" onclick="addStudent()">Add Student</button>
+        <input type="text" id="studentCourse" placeholder="Course Name">
+
+        <button class="submit" onclick="addStudent()">
+          Add Student
+        </button>
 
         <table>
+
           <thead>
             <tr>
               <th>ID</th>
               <th>Name</th>
               <th>Course</th>
+              <th>Action</th>
             </tr>
           </thead>
 
           <tbody id="studentTable">
+
             <tr>
               <td>1</td>
               <td>Mahavir</td>
               <td>BCA</td>
+              <td>
+                <button onclick="removeRow(this,'studentTable','studentCount')">
+                  Remove
+                </button>
+              </td>
             </tr>
 
             <tr>
               <td>2</td>
               <td>Ravi</td>
               <td>BSc IT</td>
+              <td>
+                <button onclick="removeRow(this,'studentTable','studentCount')">
+                  Remove
+                </button>
+              </td>
             </tr>
 
             <tr>
               <td>3</td>
               <td>Priya</td>
               <td>BCom</td>
+              <td>
+                <button onclick="removeRow(this,'studentTable','studentCount')">
+                  Remove
+                </button>
+              </td>
             </tr>
+
           </tbody>
+
         </table>
+
       </div>
+
     </div>
+
   </div>
+
+  <!-- TEACHER PAGE -->
+
+  <div id="teachers" class="page">
+
+    <div class="container">
+
+      <div class="box">
+
+        <h1>Teacher Management</h1>
+
+        <input type="text" id="teacherName" placeholder="Teacher Name">
+
+        <input type="text" id="teacherSubject" placeholder="Subject">
+
+        <button class="submit" onclick="addTeacher()">
+          Add Teacher
+        </button>
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Subject</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="teacherTable">
+
+            <tr>
+              <td>1</td>
+              <td>Patel Sir</td>
+              <td>Java</td>
+              <td>
+                <button onclick="removeRow(this,'teacherTable','teacherCount')">
+                  Remove
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>Shah Madam</td>
+              <td>DBMS</td>
+              <td>
+                <button onclick="removeRow(this,'teacherTable','teacherCount')">
+                  Remove
+                </button>
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- COURSE PAGE -->
+
+  <div id="courses" class="page">
+
+    <div class="container">
+
+      <div class="box">
+
+        <h1>Course Management</h1>
+
+        <input type="text" id="courseName" placeholder="Course Name">
+
+        <input type="text" id="courseDuration" placeholder="Duration">
+
+        <button class="submit" onclick="addCourse()">
+          Add Course
+        </button>
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Course</th>
+              <th>Duration</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="courseTable">
+
+            <tr>
+              <td>1</td>
+              <td>BCA</td>
+              <td>3 Years</td>
+              <td>
+                <button onclick="removeRow(this,'courseTable','courseCount')">
+                  Remove
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>BSc IT</td>
+              <td>3 Years</td>
+              <td>
+                <button onclick="removeRow(this,'courseTable','courseCount')">
+                  Remove
+                </button>
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- LOGIN PAGE -->
+
+  <div id="login" class="page">
+
+    <div class="container">
+
+      <div class="box">
+
+        <h1>Login</h1>
+
+        <input type="text" placeholder="Enter Username">
+
+        <input type="password" placeholder="Enter Password">
+
+        <button class="submit">
+          Login
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- REGISTER PAGE -->
+
+  <div id="register" class="page">
+
+    <div class="container">
+
+      <div class="box">
+
+        <h1>Register</h1>
+
+        <input type="text" placeholder="Full Name">
+
+        <input type="email" placeholder="Email">
+
+        <input type="password" placeholder="Password">
+
+        <button class="submit">
+          Register
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ABOUT PAGE -->
 
   <div id="about" class="page">
+
     <div class="container">
+
       <div class="box">
-        <h1>About Page</h1>
+
+        <h1>About</h1>
+
         <p>
-          This College Management System is created using HTML, CSS and JavaScript.
-          It helps manage students, login system and college records.
+          This College Management System is made using
+          HTML, CSS and JavaScript.
         </p>
+
       </div>
+
     </div>
+
   </div>
 
+  <!-- JAVASCRIPT -->
+
   <script>
+
+    // PAGE NAVIGATION
+
     function showPage(pageId) {
+
       let pages = document.querySelectorAll('.page');
 
       pages.forEach(page => {
@@ -250,34 +500,133 @@
       document.getElementById(pageId).classList.add('active');
     }
 
+    // ID COUNTERS
+
     let studentId = 4;
+    let teacherId = 3;
+    let courseId = 3;
+
+    // ADD STUDENT
 
     function addStudent() {
-      let name = document.getElementById('name').value;
-      let course = document.getElementById('course').value;
 
-      if(name === '' || course === '') {
-        alert('Please fill all fields');
+      let name = document.getElementById('studentName').value;
+
+      let course = document.getElementById('studentCourse').value;
+
+      if (name === '' || course === '') {
+        alert('Fill all fields');
         return;
       }
 
       let table = document.getElementById('studentTable');
+
       let row = table.insertRow();
 
       row.insertCell(0).innerHTML = studentId;
       row.insertCell(1).innerHTML = name;
       row.insertCell(2).innerHTML = course;
 
+      row.insertCell(3).innerHTML =
+        `<button onclick="removeRow(this,'studentTable','studentCount')">
+          Remove
+        </button>`;
+
       studentId++;
 
-      document.getElementById('count').innerHTML = studentId - 1;
+      document.getElementById('studentCount').innerHTML =
+        table.rows.length;
 
-      document.getElementById('name').value = '';
-      document.getElementById('course').value = '';
-
-      alert('Student Added Successfully');
+      document.getElementById('studentName').value = '';
+      document.getElementById('studentCourse').value = '';
     }
+
+    // ADD TEACHER
+
+    function addTeacher() {
+
+      let name = document.getElementById('teacherName').value;
+
+      let subject = document.getElementById('teacherSubject').value;
+
+      if (name === '' || subject === '') {
+        alert('Fill all fields');
+        return;
+      }
+
+      let table = document.getElementById('teacherTable');
+
+      let row = table.insertRow();
+
+      row.insertCell(0).innerHTML = teacherId;
+      row.insertCell(1).innerHTML = name;
+      row.insertCell(2).innerHTML = subject;
+
+      row.insertCell(3).innerHTML =
+        `<button onclick="removeRow(this,'teacherTable','teacherCount')">
+          Remove
+        </button>`;
+
+      teacherId++;
+
+      document.getElementById('teacherCount').innerHTML =
+        table.rows.length;
+
+      document.getElementById('teacherName').value = '';
+      document.getElementById('teacherSubject').value = '';
+    }
+
+    // ADD COURSE
+
+    function addCourse() {
+
+      let name = document.getElementById('courseName').value;
+
+      let duration = document.getElementById('courseDuration').value;
+
+      if (name === '' || duration === '') {
+        alert('Fill all fields');
+        return;
+      }
+
+      let table = document.getElementById('courseTable');
+
+      let row = table.insertRow();
+
+      row.insertCell(0).innerHTML = courseId;
+      row.insertCell(1).innerHTML = name;
+      row.insertCell(2).innerHTML = duration;
+
+      row.insertCell(3).innerHTML =
+        `<button onclick="removeRow(this,'courseTable','courseCount')">
+          Remove
+        </button>`;
+
+      courseId++;
+
+      document.getElementById('courseCount').innerHTML =
+        table.rows.length;
+
+      document.getElementById('courseName').value = '';
+      document.getElementById('courseDuration').value = '';
+    }
+
+    // REMOVE ROW
+
+    function removeRow(button, tableId, countId) {
+
+      let row = button.parentNode.parentNode;
+
+      row.remove();
+
+      let table = document.getElementById(tableId);
+
+      document.getElementById(countId).innerHTML =
+        table.rows.length;
+    }
+
   </script>
 
 </body>
+
 </html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Management System</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f9;
+    }
+
+    nav {
+      background: #2563eb;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    nav button {
+      background: white;
+      color: #2563eb;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .page {
+      display: none;
+      padding: 30px;
+    }
+
+    .active {
+      display: block;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .box {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin-bottom: 15px;
+      color: #2563eb;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button.submit {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    table th,
+    table td {
+      border: 1px solid #ddd;
+      padding: 12px;
+    }
+
+    table th {
+      background: #2563eb;
+      color: white;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .card h2 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 30px;
+      color: #2563eb;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('login')">Login</button>
+    <button onclick="showPage('register')">Register</button>
+    <button onclick="showPage('students')">Students</button>
+    <button onclick="showPage('about')">About</button>
+  </nav>
+
+  <div id="home" class="page active">
+    <div class="container">
+      <div class="box">
+        <h1>College Management System</h1>
+        <p>Welcome to simple and secure college management website.</p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h2>Students</h2>
+          <p id="count">3</p>
+        </div>
+
+        <div class="card">
+          <h2>Teachers</h2>
+          <p>15</p>
+        </div>
+
+        <div class="card">
+          <h2>Courses</h2>
+          <p>5</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="login" class="page">
+    <div class="container">
+      <div class="box">
+        <h1>Login Page</h1>
+
+        <input type="text" placeholder="Enter Username">
+        <input type="password" placeholder="Enter Password">
+
+        <button class="submit">Login</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="register" class="page">
+    <div class="container">
+      <div class="box">
+        <h1>Register Page</h1>
+
+        <input type="text" placeholder="Enter Full Name">
+        <input type="email" placeholder="Enter Email">
+        <input type="password" placeholder="Create Password">
+
+        <button class="submit">Register</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="students" class="page">
+    <div class="container">
+      <div class="box">
+        <h1>Student Management</h1>
+
+        <input type="text" id="name" placeholder="Student Name">
+        <input type="text" id="course" placeholder="Course Name">
+
+        <button class="submit" onclick="addStudent()">Add Student</button>
+
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Course</th>
+            </tr>
+          </thead>
+
+          <tbody id="studentTable">
+            <tr>
+              <td>1</td>
+              <td>Mahavir</td>
+              <td>BCA</td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>Ravi</td>
+              <td>BSc IT</td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>Priya</td>
+              <td>BCom</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="about" class="page">
+    <div class="container">
+      <div class="box">
+        <h1>About Page</h1>
+        <p>
+          This College Management System is created using HTML, CSS and JavaScript.
+          It helps manage students, login system and college records.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showPage(pageId) {
+      let pages = document.querySelectorAll('.page');
+
+      pages.forEach(page => {
+        page.classList.remove('active');
+      });
+
+      document.getElementById(pageId).classList.add('active');
+    }
+
+    let studentId = 4;
+
+    function addStudent() {
+      let name = document.getElementById('name').value;
+      let course = document.getElementById('course').value;
+
+      if(name === '' || course === '') {
+        alert('Please fill all fields');
+        return;
+      }
+
+      let table = document.getElementById('studentTable');
+      let row = table.insertRow();
+
+      row.insertCell(0).innerHTML = studentId;
+      row.insertCell(1).innerHTML = name;
+      row.insertCell(2).innerHTML = course;
+
+      studentId++;
+
+      document.getElementById('count').innerHTML = studentId - 1;
+
+      document.getElementById('name').value = '';
+      document.getElementById('course').value = '';
+
+      alert('Student Added Successfully');
+    }
+  </script>
+
+</body>
+</html>

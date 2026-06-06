@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Faculty Management</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body{
+    background:#f4f6f9;
+}
+
+.page-title{
+    font-weight:700;
+}
+
+.card{
+    border:none;
+    border-radius:15px;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+.table-container{
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+</style>
+
+</head>
+<body>
+
+<div class="container py-4">
+
+    <h2 class="page-title mb-4">
+        👨‍🏫 Faculty Management
+    </h2>
+
+    <!-- Add Faculty -->
+
+    <div class="card p-4 mb-4">
+
+        <h5 class="mb-3">Add Faculty</h5>
+
+        <div class="row">
+
+            <div class="col-md-3 mb-3">
+                <input
+                type="text"
+                id="facultyId"
+                class="form-control"
+                placeholder="Faculty ID">
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <input
+                type="text"
+                id="facultyName"
+                class="form-control"
+                placeholder="Faculty Name">
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <input
+                type="text"
+                id="facultyDepartment"
+                class="form-control"
+                placeholder="Department">
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <input
+                type="email"
+                id="facultyEmail"
+                class="form-control"
+                placeholder="Email">
+            </div>
+
+        </div>
+
+        <button
+        class="btn btn-primary"
+        onclick="addFaculty()">
+            Add Faculty
+        </button>
+
+    </div>
+
+    <!-- Search -->
+
+    <div class="card p-3 mb-4">
+
+        <input
+        type="text"
+        id="search"
+        class="form-control"
+        placeholder="Search Faculty..."
+        onkeyup="searchFaculty()">
+
+    </div>
+
+    <!-- Table -->
+
+    <div class="table-container">
+
+        <table class="table table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="facultyTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+let faculties =
+JSON.parse(localStorage.getItem("faculties")) || [];
+
+function saveFaculty(){
+    localStorage.setItem(
+        "faculties",
+        JSON.stringify(faculties)
+    );
+}
+
+function renderFaculty(){
+
+    let table =
+    document.getElementById("facultyTable");
+
+    table.innerHTML = "";
+
+    faculties.forEach((faculty,index)=>{
+
+        table.innerHTML += `
+        <tr>
+
+            <td>${faculty.id}</td>
+
+            <td>${faculty.name}</td>
+
+            <td>${faculty.department}</td>
+
+            <td>${faculty.email}</td>
+
+            <td>
+
+                <button
+                class="btn btn-warning btn-sm"
+                onclick="editFaculty(${index})">
+                Edit
+                </button>
+
+                <button
+                class="btn btn-danger btn-sm"
+                onclick="deleteFaculty(${index})">
+                Delete
+                </button>
+
+            </td>
+
+        </tr>
+        `;
+    });
+}
+
+function addFaculty(){
+
+    let id =
+    document.getElementById("facultyId").value;
+
+    let name =
+    document.getElementById("facultyName").value;
+
+    let department =
+    document.getElementById("facultyDepartment").value;
+
+    let email =
+    document.getElementById("facultyEmail").value;
+
+    if(
+        !id ||
+        !name ||
+        !department ||
+        !email
+    ){
+        alert("Please fill all fields");
+        return;
+    }
+
+    faculties.push({
+        id,
+        name,
+        department,
+        email
+    });
+
+    saveFaculty();
+    renderFaculty();
+
+    document.getElementById("facultyId").value="";
+    document.getElementById("facultyName").value="";
+    document.getElementById("facultyDepartment").value="";
+    document.getElementById("facultyEmail").value="";
+}
+
+function deleteFaculty(index){
+
+    if(confirm("Delete Faculty?")){
+
+        faculties.splice(index,1);
+
+        saveFaculty();
+
+        renderFaculty();
+    }
+}
+function editFaculty(index){
+
+    let faculty = faculties[index];
+
+    let name = prompt(
+        "Edit Faculty Name",
+        faculty.name
+    );
+
+    let department = prompt(
+        "Edit Faculty Department",
+        faculty.department
+    );
+
+    let email = prompt(
+        "Edit Faculty Email",
+        faculty.email
+    );
+
+    if(
+        name !== null &&
+        department !== null &&
+        email !== null
+    ){
+
+        faculty.name = name;
+        faculty.department = department;
+        faculty.email = email;
+
+        saveFaculty();
+        renderFaculty();
+    }
+}
+
+function searchFaculty(){
+
+    let value =
+    document
+    .getElementById("search")
+    .value
+    .toLowerCase();
+
+    let rows =
+    document.querySelectorAll(
+        "#facultyTable tr"
+    );
+
+    rows.forEach(row=>{
+
+        let text =
+        row.innerText.toLowerCase();
+
+        row.style.display =
+        text.includes(value)
+        ? ""
+        : "none";
+
+    });
+}
+localStorage.setItem(
+    "faculties",
+    JSON.stringify(faculties)
+);
+
+
+renderFaculty();
+
+</script>
+
+</body>
+</html>
